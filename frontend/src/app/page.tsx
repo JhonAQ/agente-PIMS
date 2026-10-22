@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070d1e] text-slate-100 flex overflow-x-hidden">
+    <div className="h-screen max-h-screen bg-[#070d1e] text-slate-100 flex overflow-hidden">
       {/* ── Ambient Soft Glows ── */}
       <div className="glow-spot-cyan -left-48 top-16" />
       <div className="glow-spot-blue right-10 top-40" />
@@ -54,7 +54,7 @@ export default function Home() {
       />
 
       {/* ── Área de Trabajo Principal ── */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[#070d1e]">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-[#070d1e]">
         {/* TopBar Superior de Contexto */}
         <TopBar
           activeTab={activeTab}
@@ -63,42 +63,49 @@ export default function Home() {
           onExportReport={handleExportReport}
         />
 
-        {/* Contenido Dinámico de la Vista Seleccionada */}
-        <main className="flex-1 p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
-          {activeTab === "audit" && (
-            <AuditWorkstation
-              unsaContext={unsaContext}
-              resultado={lastResult}
-              onAuditCompleted={setLastResult}
-              onExportReport={handleExportReport}
-            />
-          )}
+        {/* Si es Copilot: vista fija a pantalla completa sin scroll externo */}
+        {activeTab === "copilot" ? (
+          <main className="flex-1 min-h-0 overflow-hidden p-4 sm:p-6 max-w-5xl mx-auto w-full">
+            <LegalCopilot unsaContext={unsaContext} />
+          </main>
+        ) : (
+          /* Para las demás vistas: contenedor con scroll único fluido y footer al final */
+          <div className="flex-1 min-h-0 overflow-y-auto flex flex-col justify-between">
+            <main className="p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
+              {activeTab === "audit" && (
+                <AuditWorkstation
+                  unsaContext={unsaContext}
+                  resultado={lastResult}
+                  onAuditCompleted={setLastResult}
+                  onExportReport={handleExportReport}
+                />
+              )}
 
-          {activeTab === "checklist" && (
-            <PimsChecklist unsaContext={unsaContext} />
-          )}
+              {activeTab === "checklist" && (
+                <PimsChecklist unsaContext={unsaContext} />
+              )}
 
-          {activeTab === "calculator" && <PenaltySimulator />}
+              {activeTab === "calculator" && <PenaltySimulator />}
 
-          {activeTab === "copilot" && <LegalCopilot unsaContext={unsaContext} />}
+              {activeTab === "library" && <LegalRepository />}
+            </main>
 
-          {activeTab === "library" && <LegalRepository />}
-        </main>
-
-        {/* Pie de Página Institucional */}
-        <footer className="border-t border-white/[0.06] bg-[#050914]/90 py-4 px-6 text-xs text-slate-400">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-            <div>
-              <span className="font-semibold text-slate-300">
-                Auditoría de Sistemas — UNSA
-              </span>{" "}
-              • Grupo 8 (Ciclo B)
-            </div>
-            <div className="font-mono text-[11px] text-cyan-300">
-              Ley N° 29733 • D.S. N° 003-2013-JUS • ISO/IEC 27701
-            </div>
+            {/* Pie de Página Institucional */}
+            <footer className="border-t border-white/[0.06] bg-[#050914]/90 py-4 px-6 text-xs text-slate-400 mt-8 shrink-0">
+              <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+                <div>
+                  <span className="font-semibold text-slate-300">
+                    Auditoría de Sistemas — UNSA
+                  </span>{" "}
+                  • Grupo 8 (Ciclo B)
+                </div>
+                <div className="font-mono text-[11px] text-cyan-300">
+                  Ley N° 29733 • D.S. N° 003-2013-JUS • ISO/IEC 27701
+                </div>
+              </div>
+            </footer>
           </div>
-        </footer>
+        )}
       </div>
     </div>
   );

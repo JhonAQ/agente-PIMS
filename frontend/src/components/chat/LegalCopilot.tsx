@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   Send,
-  MessageSquare,
   User,
   Bot,
   Copy,
@@ -12,8 +11,8 @@ import {
   BookOpen,
   ShieldAlert,
   Server,
-  Sparkles,
 } from "lucide-react";
+import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer";
 import type { ChatMessage } from "@/types/audit";
 
 interface LegalCopilotProps {
@@ -25,9 +24,9 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
     {
       role: "assistant",
       content:
-        "Bienvenido a la consola del **Auditor Líder Copilot**. Estoy capacitado en la Ley N° 29733 (LPDP de Perú), el D.S. 003-2013-JUS, la Directiva de Seguridad R.D. 019-2013-JUS y el estándar ISO/IEC 27701. " +
+        "Bienvenido a la consola del **Auditor Líder Copilot**. Estoy capacitado en la **Ley N° 29733** (LPDP de Perú), el **D.S. N° 003-2013-JUS**, la Directiva de Seguridad **R.D. N° 019-2013-JUS** y el estándar **ISO/IEC 27701** (PIMS).\n\n" +
         (unsaContext
-          ? "El **Contexto Institucional de la UNSA** está activo (RCU N° 0153-2025 de retención en Aulas Virtuales, RCU N° 0229-2025 Cero Papel y RR N° 0503-2026 CSIRT). "
+          ? "El **Contexto Institucional de la UNSA** está activo (RCU N° 0153-2025 de Aulas Virtuales, RCU N° 0229-2025 Cero Papel y RR N° 0503-2026 CSIRT-UNSA).\n\n"
           : "") +
         "¿Qué aspecto normativo, control técnico o procedimiento deseas consultar?",
     },
@@ -130,7 +129,7 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
         ...prev,
         {
           role: "assistant",
-          content: `Error al procesar consulta: ${errorMsg}`,
+          content: `⚠️ Error al procesar consulta: ${errorMsg}`,
         },
       ]);
     } finally {
@@ -145,11 +144,11 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
   };
 
   return (
-    <div className="space-y-4 max-w-5xl mx-auto flex flex-col h-[calc(100vh-8rem)]">
-      {/* Barra de Consultas Rápidas */}
-      <div className="flex flex-wrap items-center gap-2 shrink-0">
+    <div className="h-full flex flex-col min-h-0 space-y-3">
+      {/* Barra de Consultas Rápidas (Superior compacta) */}
+      <div className="flex flex-wrap items-center gap-2 shrink-0 px-1">
         <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-          Consultas de Referencia:
+          Consultas rápidas:
         </span>
         {quickPrompts.map((q, idx) => {
           const Icon = q.icon;
@@ -158,7 +157,7 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
               key={idx}
               onClick={() => handleSend(q.text)}
               disabled={loading}
-              className="flex items-center gap-1.5 rounded-xl bg-[#091124] hover:bg-[#122144] px-3 py-1.5 text-xs text-slate-300 border border-white/[0.06] hover:border-cyan-500/30 transition-all disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-xl bg-[#0b1429] hover:bg-[#122144] px-3 py-1.5 text-xs text-slate-300 border border-white/[0.06] hover:border-cyan-500/30 transition-all disabled:opacity-50"
             >
               <Icon className="h-3 w-3 text-cyan-400" />
               <span>{q.label}</span>
@@ -167,96 +166,95 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
         })}
       </div>
 
-      {/* Consola de Mensajes */}
-      <div className="flex-1 rounded-2xl surface-glass p-5 shadow-xl flex flex-col justify-between overflow-hidden">
-        {/* Historial con scroll */}
-        <div className="overflow-y-auto space-y-4 pr-2 flex-1">
-          {messages.map((m, idx) => {
-            const isUser = m.role === "user";
-            return (
+      {/* Área de Mensajes con Scroll Único */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-2 space-y-4">
+        {messages.map((m, idx) => {
+          const isUser = m.role === "user";
+          return (
+            <div
+              key={idx}
+              className={`flex gap-3 text-xs leading-relaxed ${
+                isUser ? "justify-end" : "justify-start"
+              }`}
+            >
+              {!isUser && (
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 mt-1">
+                  <Bot className="h-4 w-4" />
+                </div>
+              )}
+
               <div
-                key={idx}
-                className={`flex gap-3 text-xs leading-relaxed ${
-                  isUser ? "justify-end" : "justify-start"
+                className={`group relative max-w-[85%] rounded-2xl p-4 shadow-sm ${
+                  isUser
+                    ? "bg-blue-600 text-white rounded-br-sm"
+                    : "surface-glass text-slate-200 rounded-bl-sm"
                 }`}
               >
-                {!isUser && (
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 mt-0.5">
-                    <Bot className="h-4 w-4" />
-                  </div>
+                {isUser ? (
+                  <div className="whitespace-pre-wrap font-sans">{m.content}</div>
+                ) : (
+                  <MarkdownRenderer content={m.content} />
                 )}
 
-                <div
-                  className={`group relative max-w-[85%] rounded-2xl p-4 shadow-sm ${
-                    isUser
-                      ? "bg-blue-600 text-white"
-                      : "bg-[#091124] text-slate-200 border border-white/[0.06]"
-                  }`}
-                >
-                  <div className="whitespace-pre-wrap font-sans space-y-1">
-                    {m.content}
-                  </div>
+                {!isUser && m.content && (
+                  <button
+                    onClick={() => copyToClipboard(m.content, idx)}
+                    className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-lg bg-slate-800/90 text-slate-400 hover:text-white"
+                    title="Copiar respuesta"
+                  >
+                    {copiedIndex === idx ? (
+                      <Check className="h-3.5 w-3.5 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-3.5 w-3.5" />
+                    )}
+                  </button>
+                )}
+              </div>
 
-                  {!isUser && m.content && (
-                    <button
-                      onClick={() => copyToClipboard(m.content, idx)}
-                      className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded bg-slate-800 text-slate-400 hover:text-white"
-                      title="Copiar respuesta"
-                    >
-                      {copiedIndex === idx ? (
-                        <Check className="h-3 w-3 text-emerald-400" />
-                      ) : (
-                        <Copy className="h-3 w-3" />
-                      )}
-                    </button>
-                  )}
+              {isUser && (
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-300 border border-white/[0.1] mt-1">
+                  <User className="h-4 w-4" />
                 </div>
-
-                {isUser && (
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-300 border border-white/[0.1] mt-0.5">
-                    <User className="h-4 w-4" />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-
-          {loading && (
-            <div className="flex gap-3 text-xs justify-start items-center">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-950/80 text-cyan-400 border border-cyan-500/30">
-                <Bot className="h-4 w-4 animate-pulse" />
-              </div>
-              <div className="rounded-2xl bg-[#091124] px-4 py-2 text-slate-400 border border-white/[0.06] flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-                <span>Analizando jurisprudencia y compendio legal...</span>
-              </div>
+              )}
             </div>
-          )}
+          );
+        })}
 
-          <div ref={messagesEndRef} />
-        </div>
+        {loading && (
+          <div className="flex gap-3 text-xs justify-start items-center">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-950/80 text-cyan-400 border border-cyan-500/30">
+              <Bot className="h-4 w-4 animate-pulse" />
+            </div>
+            <div className="rounded-2xl surface-glass px-4 py-2.5 text-slate-300 flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
+              <span>Analizando compendio legal y formulando dictamen pericial...</span>
+            </div>
+          </div>
+        )}
 
-        {/* Barra de Entrada Inferior */}
-        <div className="pt-4 border-t border-white/[0.06] mt-3 flex items-center gap-2 shrink-0">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-            placeholder="Formula una consulta de auditoría, control técnico o artículo legal..."
-            disabled={loading}
-            className="flex-1 rounded-xl bg-[#091124] px-4 py-2.5 text-xs text-white placeholder-slate-500 border border-white/[0.08] focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/40"
-          />
+        <div ref={messagesEndRef} />
+      </div>
 
-          <button
-            onClick={() => handleSend()}
-            disabled={!input.trim() || loading}
-            className="btn-cyan-glow flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <Send className="h-4 w-4" />
-            <span className="hidden sm:inline">Consultar</span>
-          </button>
-        </div>
+      {/* Input Inferior Fijo */}
+      <div className="shrink-0 pt-2 border-t border-white/[0.06] flex items-center gap-2">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+          placeholder="Formula una consulta sobre la Ley N° 29733, ISO 27701 o directivas de la UNSA..."
+          disabled={loading}
+          className="flex-1 rounded-xl bg-[#091124] px-4 py-3 text-xs text-white placeholder-slate-500 border border-white/[0.08] focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/40"
+        />
+
+        <button
+          onClick={() => handleSend()}
+          disabled={!input.trim() || loading}
+          className="btn-cyan-glow flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+        >
+          <Send className="h-4 w-4" />
+          <span className="hidden sm:inline">Consultar</span>
+        </button>
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export function AppSidebar({
   ];
 
   return (
-    <aside className="w-72 shrink-0 border-r border-white/[0.07] bg-[#070d1e] flex flex-col justify-between p-4 min-h-screen">
+    <aside className="w-72 shrink-0 border-r border-white/[0.07] bg-[#070d1e] flex flex-col justify-between p-4 h-full overflow-y-auto">
       <div className="space-y-6">
         {/* Cabecera / Marca Sobria (Sin isotipos cliché de IA) */}
         <div className="flex items-center gap-3 px-2 pt-2">

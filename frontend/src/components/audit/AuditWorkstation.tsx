@@ -19,6 +19,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import type { ResultadoAuditoria, Hallazgo } from "@/types/audit";
+import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer";
 
 interface AuditWorkstationProps {
   unsaContext: boolean;
@@ -379,12 +380,14 @@ export function AuditWorkstation({
                 </h3>
               </div>
               <span className="rounded bg-[#091124] px-2 py-0.5 text-[10px] font-mono text-cyan-300 border border-white/[0.08]">
-                Gemini 2.0 Flash
+                Gemini 3.0 Flash
               </span>
             </div>
 
-            <div className="mt-3 text-xs text-slate-300 leading-relaxed max-h-[220px] overflow-y-auto pr-1 whitespace-pre-wrap font-sans">
-              {resultado?.analisisGemini || (
+            <div className="mt-3 text-xs text-slate-300 leading-relaxed max-h-[260px] overflow-y-auto pr-1">
+              {resultado?.analisisGemini ? (
+                <MarkdownRenderer content={resultado.analisisGemini} />
+              ) : (
                 <span className="text-slate-500 italic">
                   El dictamen ejecutivo cualitativo y el plan de subsanación se
                   generarán automáticamente una vez ejecutada la auditoría pericial.
