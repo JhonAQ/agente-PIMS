@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   Send,
-  MessageSquareText,
+  MessageSquare,
   User,
   Bot,
   Copy,
@@ -12,23 +12,24 @@ import {
   BookOpen,
   ShieldAlert,
   Server,
+  Sparkles,
 } from "lucide-react";
 import type { ChatMessage } from "@/types/audit";
 
-interface AssistantChatProps {
+interface LegalCopilotProps {
   unsaContext: boolean;
 }
 
-export function AssistantChat({ unsaContext }: AssistantChatProps) {
+export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
       content:
-        "Bienvenido. Soy el **Auditor Líder de Privacidad y Seguridad TI**, especializado en la Ley N° 29733 (LPDP de Perú), su Reglamento (D.S. 003-2013-JUS) y directivas técnicas de TI. " +
+        "Bienvenido a la consola del **Auditor Líder Copilot**. Estoy capacitado en la Ley N° 29733 (LPDP de Perú), el D.S. 003-2013-JUS, la Directiva de Seguridad R.D. 019-2013-JUS y el estándar ISO/IEC 27701. " +
         (unsaContext
-          ? "Tengo activo el **Contexto Institucional de la UNSA** (RCU N° 0153-2025 de Aulas Virtuales, RCU N° 0229-2025 Cero Papel y RR N° 0503-2026 CSIRT). "
+          ? "El **Contexto Institucional de la UNSA** está activo (RCU N° 0153-2025 de retención en Aulas Virtuales, RCU N° 0229-2025 Cero Papel y RR N° 0503-2026 CSIRT). "
           : "") +
-        "¿Qué aspecto normativo, control técnico o procedimiento deseas auditar?",
+        "¿Qué aspecto normativo, control técnico o procedimiento deseas consultar?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -49,22 +50,22 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
     {
       label: "Plazos ARCO",
       icon: BookOpen,
-      text: "¿Cuáles son los plazos legales máximos para atender solicitudes ARCO (Acceso, Rectificación, Cancelación y Oposición) según la Ley 29733?",
+      text: "¿Cuáles son los plazos legales máximos para atender solicitudes ARCO según la Ley 29733?",
     },
     {
       label: "Aulas Virtuales UNSA",
       icon: Building2,
-      text: "¿Qué tiempos de retención y reglas de eliminación exige la Directiva RCU N° 0153-2025 para la información en aulas virtuales de la UNSA?",
+      text: "¿Qué tiempos de retención y purga exige la Directiva RCU N° 0153-2025 para aulas virtuales de la UNSA?",
     },
     {
       label: "Nivel Crítico TI",
       icon: ShieldAlert,
-      text: "¿Cuáles son las medidas técnicas obligatorias de Nivel Crítico según la Directiva R.D. 019-2013-JUS (cifrado, logs)?",
+      text: "¿Cuáles son las medidas técnicas de Nivel Crítico según la Directiva R.D. 019-2013-JUS (cifrado, logs)?",
     },
     {
-      label: "CSIRT UNSA",
+      label: "CSIRT-UNSA",
       icon: Server,
-      text: "¿Cómo está conformado el Equipo de Respuestas ante Incidentes (CSIRT-UNSA) según la Resolución Rectoral N° 0503-2026 y cuáles son sus funciones?",
+      text: "¿Quiénes integran el CSIRT-UNSA según la Resolución RR N° 0503-2026 y cuáles son sus funciones?",
     },
   ];
 
@@ -98,7 +99,6 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
         throw new Error("No se recibió flujo de datos.");
       }
 
-      // Preparar mensaje de respuesta vacío para ir agregando tokens en streaming
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
       const reader = response.body.getReader();
@@ -127,7 +127,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
         {
           role: "assistant",
           content:
-            "⚠️ Error de conexión: No se pudo completar la consulta con el modelo de IA. Verifica tu `GEMINI_API_KEY` en `.env.local`.",
+            "Error de conexión: No se pudo completar la consulta con el modelo de IA. Verifica tu `GEMINI_API_KEY` en `.env.local`.",
         },
       ]);
     } finally {
@@ -142,34 +142,11 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
   };
 
   return (
-    <div className="mx-auto max-w-5xl space-y-4">
-      {/* Header de la consola de chat */}
-      <div className="rounded-3xl surface-glass p-5 shadow-xl flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0e1a35] border border-cyan-500/30 text-cyan-400">
-            <MessageSquareText className="h-5 w-5" />
-          </div>
-          <div>
-            <h2 className="text-base font-bold text-white tracking-tight">
-              Asistente Pericial de Auditoría
-            </h2>
-            <p className="text-xs text-slate-400">
-              Consultas en tiempo real sobre la LPDP, D.S. 003, R.D. 019 y directivas UNSA
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="rounded-full bg-cyan-950/80 px-2.5 py-1 text-[10px] font-semibold text-cyan-300 border border-cyan-500/25">
-            {unsaContext ? "Modo UNSA Activo" : "Modo LPDP Nacional"}
-          </span>
-        </div>
-      </div>
-
-      {/* Chips de Preguntas Frecuentes (Estilo Referencia 1) */}
-      <div className="flex flex-wrap items-center gap-2 px-1">
+    <div className="space-y-4 max-w-5xl mx-auto flex flex-col h-[calc(100vh-8rem)]">
+      {/* Barra de Consultas Rápidas */}
+      <div className="flex flex-wrap items-center gap-2 shrink-0">
         <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-          Consultas rápidas:
+          Consultas de Referencia:
         </span>
         {quickPrompts.map((q, idx) => {
           const Icon = q.icon;
@@ -178,7 +155,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
               key={idx}
               onClick={() => handleSend(q.text)}
               disabled={loading}
-              className="flex items-center gap-1.5 rounded-xl bg-[#0b1429] hover:bg-[#132242] px-3 py-1.5 text-xs text-slate-300 border border-white/[0.06] hover:border-cyan-500/30 transition-all disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-xl bg-[#091124] hover:bg-[#122144] px-3 py-1.5 text-xs text-slate-300 border border-white/[0.06] hover:border-cyan-500/30 transition-all disabled:opacity-50"
             >
               <Icon className="h-3 w-3 text-cyan-400" />
               <span>{q.label}</span>
@@ -187,10 +164,10 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
         })}
       </div>
 
-      {/* Caja Principal de Mensajes */}
-      <div className="rounded-3xl surface-glass p-5 shadow-2xl min-h-[500px] max-h-[620px] flex flex-col justify-between">
-        {/* Historial de Mensajes */}
-        <div className="overflow-y-auto space-y-4 pr-2 max-h-[480px]">
+      {/* Consola de Mensajes */}
+      <div className="flex-1 rounded-2xl surface-glass p-5 shadow-xl flex flex-col justify-between overflow-hidden">
+        {/* Historial con scroll */}
+        <div className="overflow-y-auto space-y-4 pr-2 flex-1">
           {messages.map((m, idx) => {
             const isUser = m.role === "user";
             return (
@@ -209,7 +186,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
                 <div
                   className={`group relative max-w-[85%] rounded-2xl p-4 shadow-sm ${
                     isUser
-                      ? "bg-blue-600/90 text-white border border-blue-400/20"
+                      ? "bg-blue-600 text-white"
                       : "bg-[#091124] text-slate-200 border border-white/[0.06]"
                   }`}
                 >
@@ -220,7 +197,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
                   {!isUser && m.content && (
                     <button
                       onClick={() => copyToClipboard(m.content, idx)}
-                      className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded bg-slate-800/80 text-slate-400 hover:text-white"
+                      className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded bg-slate-800 text-slate-400 hover:text-white"
                       title="Copiar respuesta"
                     >
                       {copiedIndex === idx ? (
@@ -248,7 +225,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
               </div>
               <div className="rounded-2xl bg-[#091124] px-4 py-2 text-slate-400 border border-white/[0.06] flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-                <span>Analizando compendio normativo y formulando dictamen...</span>
+                <span>Analizando jurisprudencia y compendio legal...</span>
               </div>
             </div>
           )}
@@ -256,8 +233,8 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Bar Inferior */}
-        <div className="pt-4 border-t border-white/[0.06] mt-4 flex items-center gap-2">
+        {/* Barra de Entrada Inferior */}
+        <div className="pt-4 border-t border-white/[0.06] mt-3 flex items-center gap-2 shrink-0">
           <input
             type="text"
             value={input}
@@ -271,7 +248,7 @@ export function AssistantChat({ unsaContext }: AssistantChatProps) {
           <button
             onClick={() => handleSend()}
             disabled={!input.trim() || loading}
-            className="btn-cyan-glow flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="btn-cyan-glow flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Send className="h-4 w-4" />
             <span className="hidden sm:inline">Consultar</span>
