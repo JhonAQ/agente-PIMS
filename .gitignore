@@ -8,10 +8,17 @@ __pycache__/
 
 # Environments
 .env
+.env*.local
 .venv
 env/
 venv/
 ENV/
+
+# Node.js & Next.js
+node_modules/
+.next/
+out/
+pnpm-debug.log*
 
 # IDE / Editor files
 .vscode/
