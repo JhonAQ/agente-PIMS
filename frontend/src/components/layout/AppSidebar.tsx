@@ -14,8 +14,6 @@ import {
 
 export type SidebarTab =
   | "audit"
-  | "checklist"
-  | "calculator"
   | "copilot"
   | "library";
 
@@ -38,18 +36,6 @@ export function AppSidebar({
       label: "Inspección & Dictamen",
       description: "Auditoría y papeles de trabajo",
       icon: ShieldCheck,
-    },
-    {
-      id: "checklist" as SidebarTab,
-      label: "Checklist PIMS (ISO)",
-      description: "Madurez ISO 27701 y R.D. 019",
-      icon: ClipboardCheck,
-    },
-    {
-      id: "calculator" as SidebarTab,
-      label: "Simulador de Multas",
-      description: "Exposición financiera UIT / ANPD",
-      icon: Scale,
     },
     {
       id: "copilot" as SidebarTab,

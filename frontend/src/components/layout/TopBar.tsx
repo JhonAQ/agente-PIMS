@@ -25,14 +25,6 @@ export function TopBar({
       title: "Mesa de Trabajo de Inspección",
       subtitle: "Auditoría determinista, papeles de trabajo y cálculo de multas",
     },
-    checklist: {
-      title: "Checklist de Controles PIMS",
-      subtitle: "Evaluación de madurez bajo ISO/IEC 27701 y R.D. N° 019-2013-JUS",
-    },
-    calculator: {
-      title: "Simulador Financiero de Multas UIT",
-      subtitle: "Cuantificación de contingencias pecuniarias ante la ANPD",
-    },
     copilot: {
       title: "Asistente Copilot Pericial",
       subtitle: "Consultas técnicas y jurisprudenciales con IA en tiempo real",

@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { AppSidebar, type SidebarTab } from "@/components/layout/AppSidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import { AuditWorkstation } from "@/components/audit/AuditWorkstation";
-import { PimsChecklist } from "@/components/checklist/PimsChecklist";
-import { PenaltySimulator } from "@/components/calculator/PenaltySimulator";
 import { LegalCopilot } from "@/components/chat/LegalCopilot";
 import { LegalRepository } from "@/components/library/LegalRepository";
 import type { ResultadoAuditoria } from "@/types/audit";
@@ -80,12 +78,6 @@ export default function Home() {
                   onExportReport={handleExportReport}
                 />
               )}
-
-              {activeTab === "checklist" && (
-                <PimsChecklist unsaContext={unsaContext} />
-              )}
-
-              {activeTab === "calculator" && <PenaltySimulator />}
 
               {activeTab === "library" && <LegalRepository />}
             </main>

@@ -52,6 +52,24 @@ export function AuditWorkstation({
     }
   };
 
+  const handleLoadDemoPdf = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch("/demo/politica_plataforma_digital_demo.pdf");
+      if (!response.ok) throw new Error("No se pudo cargar el archivo PDF demo.");
+      const blob = await response.blob();
+      const demoFile = new File([blob], "POL-PRIV-OTI-2025.pdf", { type: "application/pdf" });
+      setFile(demoFile);
+      setTextInput("");
+      setInputTab("upload");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Error al cargar PDF demo");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLoadSample = (sample: "insecure" | "unsa") => {
     setInputTab("text");
     setError(null);
@@ -336,15 +354,25 @@ export function AuditWorkstation({
 
           {/* Acciones del panel de entrada */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-white/[0.05]">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
               <span className="text-[11px] text-slate-500">Cargar:</span>
+              <button
+                type="button"
+                onClick={handleLoadDemoPdf}
+                title="Cargar documento oficial PDF generado con Typst (POL-PRIV-OTI-2025)"
+                className="text-cyan-400 hover:text-cyan-300 hover:underline inline-flex items-center gap-1 text-[11px] font-medium"
+              >
+                <FileText className="h-3 w-3" />
+                <span>PDF Demo Typst</span>
+              </button>
+              <span>•</span>
               <button
                 type="button"
                 onClick={() => handleLoadSample("insecure")}
                 className="text-cyan-400 hover:text-cyan-300 hover:underline inline-flex items-center gap-1 text-[11px]"
               >
                 <FileCode2 className="h-3 w-3" />
-                <span>Muestra Insegura</span>
+                <span>Texto Inseguro</span>
               </button>
               <span>•</span>
               <button
@@ -353,8 +381,18 @@ export function AuditWorkstation({
                 className="text-cyan-400 hover:text-cyan-300 hover:underline inline-flex items-center gap-1 text-[11px]"
               >
                 <Building className="h-3 w-3" />
-                <span>Muestra UNSA</span>
+                <span>Texto UNSA</span>
               </button>
+              <span>•</span>
+              <a
+                href="/demo/politica_plataforma_digital_demo.pdf"
+                download="POL-PRIV-OTI-2025.pdf"
+                title="Descargar archivo PDF demo institucional"
+                className="text-slate-400 hover:text-cyan-300 hover:underline inline-flex items-center gap-1 text-[11px]"
+              >
+                <Download className="h-3 w-3" />
+                <span>Descargar PDF</span>
+              </a>
             </div>
 
             <button
