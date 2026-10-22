@@ -26,3 +26,7 @@ Thumbs.db
 
 # Typst cache/temporary files
 .typst-cache/
+
+# Raw PDFs & Large binary knowledge files
+knowledge/**/raw_pdfs/*
+!knowledge/**/raw_pdfs/.gitkeep
