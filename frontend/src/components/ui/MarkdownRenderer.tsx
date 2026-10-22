@@ -3,6 +3,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 interface MarkdownRendererProps {
   content: string;
@@ -13,7 +14,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
   return (
     <div className={`prose prose-invert max-w-none text-xs leading-relaxed ${className}`}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkBreaks]}
         components={{
           h1: ({ ...props }) => (
             <h1 className="text-base font-bold text-white mt-3 mb-1.5 border-b border-white/[0.08] pb-1" {...props} />
