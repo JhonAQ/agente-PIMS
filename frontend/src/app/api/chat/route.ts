@@ -67,6 +67,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: unknown) {
+    console.error("[api/chat] Error procesando consulta:", err);
     const errorMsg = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
       { success: false, error: `Error en el servicio de chat: ${errorMsg}` },

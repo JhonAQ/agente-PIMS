@@ -92,11 +92,14 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Error en la respuesta del asistente.");
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || `Error del servidor (${response.status}: ${response.statusText})`
+        );
       }
 
       if (!response.body) {
-        throw new Error("No se recibió flujo de datos.");
+        throw new Error("El servidor no devolvió flujo de datos.");
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
@@ -122,12 +125,12 @@ export function LegalCopilot({ unsaContext }: LegalCopilotProps) {
         });
       }
     } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content:
-            "Error de conexión: No se pudo completar la consulta con el modelo de IA. Verifica tu `GEMINI_API_KEY` en `.env.local`.",
+          content: `Error al procesar consulta: ${errorMsg}`,
         },
       ]);
     } finally {

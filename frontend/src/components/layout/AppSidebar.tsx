@@ -178,7 +178,7 @@ export function AppSidebar({
           </span>
           <span className="flex items-center gap-1 text-emerald-400 font-mono text-[10px]">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
-            Gemini 2.0
+            Gemini 3.0 Flash
           </span>
         </div>
 
