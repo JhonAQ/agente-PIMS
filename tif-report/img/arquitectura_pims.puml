@@ -1,0 +1,75 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam defaultFontName Liberation Serif, Arial, sans-serif
+skinparam roundcorner 8
+
+skinparam actor {
+    BackgroundColor #334155
+    BorderColor #1E293B
+    FontColor #0F172A
+}
+
+skinparam participant {
+    BackgroundColor #1E3A8A
+    BorderColor #172554
+    FontColor white
+}
+
+skinparam control {
+    BackgroundColor #047857
+    BorderColor #064E3B
+    FontColor white
+}
+
+skinparam database {
+    BackgroundColor #7C2D12
+    BorderColor #431407
+    FontColor white
+}
+
+actor "Auditor de Sistemas\n(Usuario)" as Auditor
+participant "Agente Agy\n(Orquestador IA)" as Agente
+control "Skill lpdp-auditor\n(scripts/auditar_privacidad.py)" as Skill
+database "Base Normativa\n(references/marco_normativo_lpdp.md)" as Norma
+
+autonumber
+
+Auditor -> Agente : Solicitar auditoría de cumplimiento PIMS (artefacto/política)
+activate Agente
+
+Agente -> Agente : Analizar intención y activar Skill correspondiente
+Agente -> Skill : Inicializar ejecución del Skill `lpdp-auditor`
+activate Skill
+
+Skill -> Norma : Consultar Principios Rectores (Arts. 4-12 Ley 29733)
+activate Norma
+Norma --> Skill : Retornar condiciones de consentimiento y finalidad
+deactivate Norma
+
+Skill -> Skill : Escanear texto: validar consentimiento expreso y separación de finalidades
+
+Skill -> Norma : Consultar Plazos de Derechos ARCO (D.S. 003-2013-JUS)
+activate Norma
+Norma --> Skill : Plazos máximos: 10 días (R/C/O) y 20 días (Acceso)
+deactivate Norma
+
+Skill -> Skill : Verificar presencia de canales formales y plazos reglamentarios
+
+Skill -> Norma : Consultar Directiva de Seguridad R.D. 019-2013-JUS y Tabla de Multas UIT
+activate Norma
+Norma --> Skill : Medidas de nivel crítico (cifrado AES-256) y escala UIT (0.5 a 100 UIT)
+deactivate Norma
+
+Skill -> Skill : Calcular Score de Cumplimiento (0-100) y clasificar no conformidades
+
+Skill --> Agente : JSON estructurado con hallazgos (Condición, Criterio, Multa)
+deactivate Skill
+
+Agente -> Agente : Sintetizar dictamen pericial en formato de Papeles de Trabajo
+Agente --> Auditor : Presentar Informe de Auditoría y Plan de Mitigación de Riesgos
+deactivate Agente
+
+@enduml

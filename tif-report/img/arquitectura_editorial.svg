@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480">
+  <defs>
+    <style>
+      .title { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: 700; fill: #111827; letter-spacing: 0.02em; }
+      .subtitle { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 500; fill: #6B7280; }
+      .box-title { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 700; fill: #1F2937; }
+      .box-desc { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; fill: #4B5563; }
+      .code-text { font-family: "Liberation Mono", "Fira Code", monospace; font-size: 9px; fill: #374151; }
+      .badge-text { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 9px; font-weight: 700; fill: #FFFFFF; }
+      .conn-label { font-family: "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 9.5px; font-weight: 600; fill: #4B5563; }
+    </style>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="960" height="480" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="1" />
+
+  <!-- Diagram Title Header -->
+  <text x="40" y="38" class="title">ARQUITECTURA DE AGENTES Y BASE DE CONOCIMIENTO (PIMS / LPDP N° 29733)</text>
+  <text x="40" y="56" class="subtitle">Ecosistema modular de auditoría continua de privacidad: Orquestación, Herramientas y Bases Normativas</text>
+  <line x1="40" y1="68" x2="920" y2="68" stroke="#E5E7EB" stroke-width="1" />
+
+  <!-- ================= 1. CAPA INTERFAZ / AUDITOR ================= -->
+  <rect x="35" y="90" width="220" height="340" rx="6" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" />
+  <rect x="35" y="90" width="220" height="28" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1" />
+  <text x="47" y="108" class="box-title">CAPA DE INTERACCIÓN</text>
+
+  <!-- Node: Auditor -->
+  <rect x="50" y="135" width="190" height="75" rx="4" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="1" />
+  <text x="65" y="158" class="box-title">Auditor de Sistemas</text>
+  <text x="65" y="176" class="box-desc">Define objetivos de control,</text>
+  <text x="65" y="191" class="box-desc">repositorio o políticas.</text>
+
+  <!-- Node: CLI Agy -->
+  <rect x="50" y="235" width="190" height="85" rx="4" fill="#F9FAFB" stroke="#9CA3AF" stroke-width="1" />
+  <text x="65" y="258" class="box-title">Antigravity CLI (Agy)</text>
+  <text x="65" y="276" class="box-desc">Punto de entrada de ejecución</text>
+  <text x="65" y="293" class="code-text">agy --print "..."</text>
+  <text x="65" y="308" class="box-desc">Modo no interactivo / batch</text>
+
+  <!-- Internal arrow inside Capa 1 -->
+  <line x1="145" y1="210" x2="145" y2="235" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3,3" />
+
+  <!-- Node: Output final -->
+  <rect x="50" y="345" width="190" height="65" rx="4" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1" />
+  <text x="65" y="368" class="box-title" fill="#166534">Dictamen Pericial</text>
+  <text x="65" y="386" class="box-desc" fill="#15803D">Papeles de trabajo y escala UIT</text>
+
+  <!-- ================= 2. CAPA AGENTE ORQUESTADOR ================= -->
+  <rect x="295" y="90" width="315" height="340" rx="6" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5" />
+  <rect x="295" y="90" width="315" height="28" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" />
+  <text x="307" y="108" class="box-title" fill="#1E40AF">AGENTE COGNITIVO (ORQUESTADOR)</text>
+  <rect x="545" y="94" width="55" height="18" rx="3" fill="#2563EB" />
+  <text x="551" y="107" class="badge-text">CORE IA</text>
+
+  <!-- Componentes del Agente -->
+  <rect x="310" y="135" width="285" height="70" rx="4" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <text x="323" y="157" class="box-title">Auditor Líder PIMS (Identidad)</text>
+  <text x="323" y="174" class="box-desc">Aplica principios de ISO/IEC 27701,</text>
+  <text x="323" y="190" class="box-desc">taxonomía de hallazgos y criterio pericial.</text>
+
+  <rect x="310" y="220" width="285" height="85" rx="4" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <text x="323" y="242" class="box-title">Motor de Decisión e Inferencia</text>
+  <text x="323" y="259" class="box-desc">• Análisis léxico-sintáctico de cláusulas</text>
+  <text x="323" y="274" class="box-desc">• Detección de casillas premarcadas</text>
+  <text x="323" y="289" class="box-desc">• Discriminación de datos sensibles</text>
+
+  <rect x="310" y="320" width="285" height="90" rx="4" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <text x="323" y="342" class="box-title">Generador de Papeles de Trabajo</text>
+  <text x="323" y="359" class="box-desc">Estructuración formal de evidencia:</text>
+  <text x="323" y="375" class="code-text">[Condición | Criterio | Causa]</text>
+  <text x="323" y="391" class="code-text">[Efecto (Multa UIT) | Recomendación]</text>
+
+  <!-- ================= 3. CAPA RECURSOS, SKILL Y NORMATIVA ================= -->
+  <!-- Sub-block 3A: Skill lpdp-auditor -->
+  <rect x="650" y="90" width="275" height="155" rx="6" fill="#FFFFFF" stroke="#059669" stroke-width="1.2" />
+  <rect x="650" y="90" width="275" height="26" rx="6" fill="#ECFDF5" stroke="#059669" stroke-width="1.2" />
+  <text x="662" y="107" class="box-title" fill="#065F46">SKILL: lpdp-auditor</text>
+  <rect x="855" y="94" width="60" height="17" rx="3" fill="#059669" />
+  <text x="863" y="106" class="badge-text">TOOLS</text>
+
+  <text x="665" y="132" class="code-text">• SKILL.md (Directivas y activación)</text>
+  <text x="665" y="152" class="code-text">• scripts/auditar_privacidad.py</text>
+  <text x="665" y="172" class="box-desc">  - Validador regex de consentimiento</text>
+  <text x="665" y="190" class="box-desc">  - Comprobador de plazos ARCO</text>
+  <text x="665" y="208" class="box-desc">  - Clasificador automático de score 0-100</text>
+  <text x="665" y="228" class="code-text">• examples/politica_muestra_insegura.txt</text>
+
+  <!-- Sub-block 3B: Base de Conocimiento Normativo -->
+  <rect x="650" y="265" width="275" height="165" rx="6" fill="#FFFFFF" stroke="#B45309" stroke-width="1.2" />
+  <rect x="650" y="265" width="275" height="26" rx="6" fill="#FFFBEB" stroke="#B45309" stroke-width="1.2" />
+  <text x="662" y="282" class="box-title" fill="#92400E">BASE NORMATIVA</text>
+  <rect x="840" y="269" width="75" height="17" rx="3" fill="#B45309" />
+  <text x="846" y="281" class="badge-text">JURÍDICO</text>
+
+  <text x="665" y="307" class="code-text">• references/marco_normativo_lpdp.md</text>
+  <text x="665" y="325" class="box-desc">• Ley N° 29733: Arts. 4-12 (Principios)</text>
+  <text x="665" y="343" class="box-desc">• D.S. 003-2013-JUS: Arts. 47-59 (Plazos ARCO)</text>
+  <text x="665" y="361" class="box-desc">• R.D. 019-2013-JUS: Medidas de Seguridad</text>
+  <text x="665" y="377" class="box-desc">  (Básico, Medio y Crítico: Cifrado/Logs)</text>
+  <text x="665" y="395" class="box-desc">• Tabla Oficial de Sanciones ANPD (UIT)</text>
+  <text x="665" y="413" class="box-desc">• ISO/IEC 27701:2019 (Controles PIMS)</text>
+
+  <!-- ================= CONECTORES ORTOGONALES Y LABELS ================= -->
+  <!-- 1. CLI -> Agente -->
+  <line x1="240" y1="270" x2="295" y2="270" stroke="#2563EB" stroke-width="1.5" />
+  <polygon points="291,267 296,270 291,273" fill="#2563EB" />
+  <rect x="246" y="258" width="42" height="13" fill="#FFFFFF" />
+  <text x="248" y="268" class="conn-label" fill="#2563EB">Invoca</text>
+
+  <!-- 2. Agente -> Skill -->
+  <line x1="610" y1="160" x2="650" y2="160" stroke="#059669" stroke-width="1.5" />
+  <polygon points="646,157 651,160 646,163" fill="#059669" />
+  <rect x="614" y="148" width="30" height="13" fill="#FFFFFF" />
+  <text x="616" y="158" class="conn-label" fill="#059669">Tool</text>
+
+  <!-- 3. Agente -> Normativa -->
+  <line x1="610" y1="340" x2="650" y2="340" stroke="#B45309" stroke-width="1.5" />
+  <polygon points="646,337 651,340 646,343" fill="#B45309" />
+  <rect x="613" y="328" width="34" height="13" fill="#FFFFFF" />
+  <text x="615" y="338" class="conn-label" fill="#B45309">Reglas</text>
+
+  <!-- 4. Retorno de Dictamen a Capa 1 -->
+  <path d="M 452 410 L 452 445 L 145 445 L 145 410" fill="none" stroke="#16A34A" stroke-width="1.2" stroke-dasharray="4,3" />
+  <polygon points="142,414 145,409 148,414" fill="#16A34A" />
+  <rect x="230" y="438" width="138" height="14" fill="#FAFAFA" />
+  <text x="234" y="449" class="conn-label" fill="#16A34A">Retorno de Dictamen Evaluado</text>
+</svg>

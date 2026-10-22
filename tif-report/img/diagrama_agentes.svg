@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="920" height="460">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#EFF6FF" />
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="skillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="normaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C2D12" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+    <linearGradient id="userGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="920" height="460" rx="16" fill="url(#bgGrad)" stroke="#CBD5E1" stroke-width="1.5" />
+
+  <!-- Title Banner -->
+  <text x="460" y="38" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#0F172A">
+    ARQUITECTURA DE INTERACCIÓN: AGENTE DE AUDITORÍA Y SKILL PIMS
+  </text>
+  <text x="460" y="60" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#64748B">
+    Flujo de Evaluación de Cumplimiento bajo la Ley N° 29733 y D.S. 003-2013-JUS
+  </text>
+
+  <!-- 1. AUDITOR / USUARIO -->
+  <g transform="translate(40, 140)">
+    <rect width="180" height="180" rx="12" fill="url(#userGrad)" filter="url(#shadow)" />
+    <circle cx="90" cy="55" r="26" fill="#F1F5F9" />
+    <path d="M 66 110 C 66 90, 114 90, 114 110 Z" fill="#F1F5F9" />
+    <text x="90" y="135" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">Auditor de Sistemas</text>
+    <text x="90" y="155" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#E2E8F0">Inicia Inspección / CLI</text>
+  </g>
+
+  <!-- Arrow 1: User -> Agent -->
+  <path d="M 220 230 L 290 230" stroke="#2563EB" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowBlue)" />
+  <polygon points="290,225 300,230 290,235" fill="#2563EB" />
+  <text x="255" y="218" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">Requerimiento</text>
+
+  <!-- 2. AGENTE ANTIGRAVITY (ORQUESTADOR) -->
+  <g transform="translate(300, 110)">
+    <rect width="260" height="240" rx="14" fill="url(#agentGrad)" filter="url(#shadow)" />
+    <rect x="15" y="15" width="230" height="40" rx="8" fill="#1E293B" opacity="0.4" />
+    <text x="130" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">Agente Inteligente (Agy)</text>
+    <text x="130" y="85" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#BFDBFE">Rol: Auditor Líder PIMS</text>
+
+    <!-- Sub-boxes inside Agent -->
+    <rect x="25" y="105" width="210" height="35" rx="6" fill="#FFFFFF" opacity="0.95" />
+    <text x="130" y="127" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">1. Razonamiento Cognitivo</text>
+
+    <rect x="25" y="150" width="210" height="35" rx="6" fill="#FFFFFF" opacity="0.95" />
+    <text x="130" y="172" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">2. Orquestador de Tools</text>
+
+    <rect x="25" y="195" width="210" height="35" rx="6" fill="#FFFFFF" opacity="0.95" />
+    <text x="130" y="217" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">3. Generador de Dictamen</text>
+  </g>
+
+  <!-- Arrow 2: Agent -> Skill -->
+  <path d="M 560 190 L 630 150" stroke="#059669" stroke-width="3" stroke-linecap="round" />
+  <polygon points="625,143 638,145 632,156" fill="#059669" />
+  <text x="600" y="160" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#065F46">Ejecuta Skill</text>
+
+  <!-- Arrow 3: Agent -> Normativa -->
+  <path d="M 560 270 L 630 310" stroke="#D97706" stroke-width="3" stroke-linecap="round" />
+  <polygon points="632,304 638,315 625,317" fill="#D97706" />
+  <text x="600" y="305" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#92400E">Consulta Base</text>
+
+  <!-- 3. COMPONENTE SKILL: lpdp-auditor -->
+  <g transform="translate(640, 80)">
+    <rect width="240" height="135" rx="12" fill="url(#skillGrad)" filter="url(#shadow)" />
+    <text x="120" y="30" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">Skill: lpdp-auditor</text>
+    <rect x="15" y="45" width="210" height="75" rx="8" fill="#FFFFFF" opacity="0.95" />
+    <text x="25" y="68" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#065F46">• scripts/auditar_privacidad.py</text>
+    <text x="25" y="88" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#065F46">• Escaneo de Consentimiento</text>
+    <text x="25" y="108" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#065F46">• Validación de Canales ARCO</text>
+  </g>
+
+  <!-- 4. BASE DE CONOCIMIENTO NORMATIVO -->
+  <g transform="translate(640, 245)">
+    <rect width="240" height="135" rx="12" fill="url(#normaGrad)" filter="url(#shadow)" />
+    <text x="120" y="30" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF">Base Normativa PIMS</text>
+    <rect x="15" y="45" width="210" height="75" rx="8" fill="#FFFFFF" opacity="0.95" />
+    <text x="25" y="68" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#7C2D12">• Ley 29733 (Art. 4-12, 18-22)</text>
+    <text x="25" y="88" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#7C2D12">• Directiva R.D. 019-2013-JUS</text>
+    <text x="25" y="108" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" fill="#7C2D12">• Tabla Oficial de Sanciones UIT</text>
+  </g>
+
+  <!-- Return Flow: Bottom line to Auditor -->
+  <path d="M 430 350 L 430 410 L 130 410 L 130 320" stroke="#059669" stroke-width="2.5" stroke-dasharray="6,6" fill="none" />
+  <polygon points="125,325 130,315 135,325" fill="#059669" />
+  <text x="280" y="402" text-anchor="middle" font-family="'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="bold" fill="#047857">
+    Dictamen Estructurado + Papeles de Trabajo (Hallazgos, Multas y Recomendaciones)
+  </text>
+</svg>
